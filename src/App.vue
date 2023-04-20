@@ -55,14 +55,14 @@ export default {
     cardItems.forEach(item => {
       cardList.value.push({
         value:item,
-        visible: true,
+        visible: false,
         position: null,
         matched: false
       });
 
       cardList.value.push({
         value:item,
-        visible: true,
+        visible: false,
         position: null,
         matched: false
       });
