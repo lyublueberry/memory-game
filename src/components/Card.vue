@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
     <div class="card" @click="selectCard">
-        <div v-if="visible" class="card-face is-front">{{ value }}</div>
+        <div v-if="visible" class="card-face is-front">{{ value }} {{ matched }}</div>
         <div v-else class="card-face is-back">back</div>
     </div>
 </template>
@@ -11,15 +11,15 @@ export default {
     props: {
         matched: {
             type: Boolean,
-            default: true
+            default: false
         },
         position: {
             type: Number,
-            required: true
+            required: false
         },
         value: {
             type: Number,
-            required: true
+            required: false
         },
         visible: {
             type: Boolean,
@@ -30,7 +30,7 @@ export default {
         const selectCard = () => {
             contex.emit('select-card', {
                 position: props.position,
-                facevalue: props.value
+                faceValue: props.value
             })
         }
 

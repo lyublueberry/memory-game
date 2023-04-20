@@ -2,8 +2,7 @@
   <h1>Game</h1>
 
   <section class="game-board">
-    <Card v-for="(card, index) in cardList" :key="`card-${index}`"
-    :value="card.value" :visible="card.visible"
+    <Card v-for="(card, index) in cardList" :key="`card-${index}`" :value="card.value" :visible="card.visible"
       @select-card="flipCard" :position="card.position" :matched="card.matched" />
   </section>
   {{ status }}
@@ -45,21 +44,27 @@ export default {
         const cardOne = currentValue[0];
         const cardTwo = currentValue[1];
 
-        if (cardOne.facaValue === cardTwo.facaValue) {
-          status.value = "Matched";
+        console.log(cardOne.faceValue, cardTwo.faceValue );
+
+        if (cardOne.faceValue === cardTwo.faceValue) {
           cardList.value[cardOne.position].matched = true;
           cardList.value[cardTwo.position].matched = true;
-        } else {status.value = 'Mismatch'}
-
-
+        } else { 
+          console.log('456');
           cardList.value[cardOne.position].visible = false;
-        cardList.value[cardTwo.position].visible = false;
+          cardList.value[cardTwo.position].visible = false;
+        }
+
         userSelection.value.length = 0
       }
-    }, { deep: true })
+    },
+    { deep: true })
 
     return {
-      cardList, flipCard, userSelection, status
+      cardList,
+      flipCard,
+      userSelection,
+      status
     }
   }
 }
