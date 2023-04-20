@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { ref, watch } from 'vue';
+import { ref, watch, computed } from 'vue';
 import Card from './components/Card.vue';
 
 export default {
@@ -19,12 +19,23 @@ export default {
   },
   setup() {
     const userSelection = ref([]);
-    const cardList = ref([]);
-    const status = ref('');
+    const cardList = ref([]);/* 
+    const status = ref(''); */
+
+    const status = computed(() => {
+      if (remainingPairs.value === 0) {
+        return "Wins";
+      } else return `Осталось: ${remainingPairs.value}`;
+    })
+
+    const remainingPairs = computed(() => {
+      const remainingCards = cardList.value.filter(card => card.matched === false).length
+      return remainingCards / 2;
+    });
 
     for (let i = 0; i < 30; i++) {
       cardList.value.push({
-        value: i,
+        value: 15,
         visible: false,
         position: i,
         matched: false
@@ -64,7 +75,7 @@ export default {
       cardList,
       flipCard,
       userSelection,
-      status
+      status,
     }
   }
 }
