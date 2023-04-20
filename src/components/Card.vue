@@ -9,6 +9,10 @@
 <script>
 export default {
     props: {
+        matched: {
+            type: Boolean,
+            default: true
+        },
         position: {
             type: Number,
             required: true
@@ -25,7 +29,8 @@ export default {
     setup(props, contex) {
         const selectCard = () => {
             contex.emit('select-card', {
-                position: props.position
+                position: props.position,
+                facevalue: props.value
             })
         }
 
