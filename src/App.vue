@@ -7,7 +7,7 @@
   </section>
   {{ status }}
 
-  <button @click="shuffleCards">Перемешать карточки</button>
+  <button @click="restartGame">Перезапустить игру</button>
 </template>
 
 <script>
@@ -37,6 +37,18 @@ export default {
 
     const shuffleCards = () => {
       cardList.value = _.shuffle(cardList.value);
+    }
+
+    const restartGame = () => {
+      shuffleCards();
+      cardList.value = cardList.value.map((card, index) => {
+        return {
+          ...card,
+          matched: false,
+          position: index,
+          visible: false
+        }
+      })
     }
 
     for (let i = 0; i < 30; i++) {
@@ -82,7 +94,8 @@ export default {
       flipCard,
       userSelection,
       status,
-      shuffleCards
+      shuffleCards,
+      restartGame
     }
   }
 }
