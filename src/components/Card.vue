@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
     <div class="card" @click="selectCard">
-        <div v-if="visible" class="card-face is-front">{{ value }} {{ position }}</div>
+        <div v-if="visible" class="card-face is-front">{{ value }} {{ position }} {{ matched }}</div>
         <div v-else class="card-face is-back">back</div>
     </div>
 </template>

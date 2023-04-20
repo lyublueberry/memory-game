@@ -51,17 +51,17 @@ export default {
       })
     };
 
-    const cardItems = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+    const cardItems = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
     cardItems.forEach(item => {
       cardList.value.push({
-        value:item,
+        value: item,
         visible: false,
         position: null,
         matched: false
       });
 
       cardList.value.push({
-        value:item,
+        value: item,
         visible: false,
         position: null,
         matched: false
@@ -80,8 +80,15 @@ export default {
       cardList.value[payload.position].visible = true;
 
       if (userSelection.value[0]) {
-        userSelection.value[1] = payload;
-      } else userSelection.value[0] = payload;
+        if ((userSelection.value[0].position === payload.position) &&
+        userSelection.value[0].faceValue === payload.faceValue) {
+          return
+        } else {
+          userSelection.value[1] = payload;
+        }
+      } else {
+        userSelection.value[0] = payload;
+      }
     }
 
     watch(userSelection, currentValue => {
@@ -89,21 +96,21 @@ export default {
         const cardOne = currentValue[0];
         const cardTwo = currentValue[1];
 
-        console.log(cardOne.faceValue, cardTwo.faceValue );
-
         if (cardOne.faceValue === cardTwo.faceValue) {
           cardList.value[cardOne.position].matched = true;
           cardList.value[cardTwo.position].matched = true;
-        } else { 
-          console.log('456');
-          cardList.value[cardOne.position].visible = false;
-          cardList.value[cardTwo.position].visible = false;
+        } else {
+          setTimeout(() => {
+            cardList.value[cardOne.position].visible = false;
+            cardList.value[cardTwo.position].visible = false;
+          }, 2000)
+
         }
 
         userSelection.value.length = 0
       }
     },
-    { deep: true })
+      { deep: true })
 
     return {
       cardList,
