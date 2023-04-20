@@ -1,13 +1,18 @@
 <template>
-  <h1>Game</h1>
+  <h1 class="game__title">Тренируй память</h1>
+  <h2 class="game__subtitle">игра</h2>
+
+  <button class="btn__start" @click="restartGame">
+    <img class="btn__img" src="../public/images/startbtn.png" width="100px" height="100px" alt="btn" />
+  </button>
+
 
   <section class="game-board">
     <Card v-for="(card, index) in cardList" :key="`card-${index}`" :value="card.value" :visible="card.visible"
       @select-card="flipCard" :position="card.position" :matched="card.matched" />
   </section>
-  {{ status }}
-
-  <button @click="restartGame">Перезапустить игру</button>
+  <p>тестовое задание для ROWI Факторинг Плюс </p>
+  <span> сделала <a class="link__tg" href="https://t.me/lyublueberry">Черникова Любовь</a></span>
 </template>
 
 <script>
@@ -51,7 +56,9 @@ export default {
       })
     };
 
-    const cardItems = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+    const cardItems = ['sticker', 'sticker1', 'sticker2', 'sticker3', 'sticker4', 'sticker5',
+      'sticker6', 'sticker7', 'sticker8', 'sticker9', 'sticker10',
+      'sticker11', 'sticker12', 'sticker13', 'sticker14'];
     cardItems.forEach(item => {
       cardList.value.push({
         value: item,
@@ -80,8 +87,7 @@ export default {
       cardList.value[payload.position].visible = true;
 
       if (userSelection.value[0]) {
-        if ((userSelection.value[0].position === payload.position) &&
-        userSelection.value[0].faceValue === payload.faceValue) {
+        if (userSelection.value[0].position === payload.position && userSelection.value[0].faceValue === payload.faceValue) {
           return
         } else {
           userSelection.value[1] = payload;
@@ -125,21 +131,54 @@ export default {
 </script>
 
 <style>
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  color: #ffffff;
+  background-image: url(../public/images/White+Honeybomb+Backgrounds.jpg);
 }
 
 .game-board {
   display: grid;
-  grid-template-columns: 100px 100px 100px 100px 100px;
-  grid-template-rows: 100px 100px 100px 100px 100px 100px;
+  grid-template-columns: repeat(5, 100px);
+  grid-template-rows: repeat(6, 100px);
   grid-column-gap: 30px;
   grid-row-gap: 30px;
   justify-content: center;
+  margin-bottom: 24px;
 }
-</style>
+
+.btn__start {
+  margin-bottom: 24px;
+  width: 100px;
+  height: 100px;
+}
+
+.game__title {
+  margin: 0;
+  padding-top: 12px;
+  margin-bottom: 24px;
+}
+
+.btn__img {
+  width: 90px;
+  height: 90px;
+}
+
+.game__subtitle {
+  margin: 0;
+  margin-bottom: 14px;
+}
+
+.link__tg {
+  text-decoration: none;
+  color: #ffffff;
+}</style>

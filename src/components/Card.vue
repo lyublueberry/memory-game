@@ -1,8 +1,11 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
     <div class="card" @click="selectCard">
-        <div v-if="visible" class="card-face is-front">{{ value }} {{ position }} {{ matched }}</div>
-        <div v-else class="card-face is-back">back</div>
+        <div v-if="visible" class="card-face is-front">
+        <img :src="`/images/${value}.png`" width="100" height="100" alt="pic"></div>
+        <div v-else class="card-face is-back"></div>
+         <img v-if="matched" width="30" height="30" class="icon-check" src="../../public/images/icon.png"/>
+
     </div>
 </template>
 
@@ -18,7 +21,7 @@ export default {
             required: false
         },
         value: {
-            type: Number,
+            type: String,
             required: false
         },
         visible: {
@@ -34,7 +37,7 @@ export default {
             })
         }
 
-        return{
+        return {
             selectCard
         }
     }
@@ -43,21 +46,29 @@ export default {
 
 <style>
 .card {
-    border: 10px solid green;
     position: relative;
 }
 
+.icon-check {
+    right: 0;
+    position: absolute;
+    bottom: 0;
+}
+
 .card-face {
+    border: 3px solid #ffffff;
+    border-radius: 4px;
     width: 100%;
     height: 100%;
     position: absolute;
 }
 
 .card-face.is-front {
-    background-color: blue;
+    background-image: url();
+    background-color: blueviolet;
 }
 
 .card-face.is-back {
-    background-color: blueviolet;
-}
-</style>
+    background-image: url(../../public/images/back-bg.jpg);
+
+}</style>
