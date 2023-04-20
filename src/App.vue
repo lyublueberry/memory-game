@@ -49,16 +49,32 @@ export default {
           visible: false
         }
       })
-    }
+    };
 
-    for (let i = 0; i < 30; i++) {
+    const cardItems = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+    cardItems.forEach(item => {
       cardList.value.push({
-        value: i,
-        visible: false,
-        position: i,
+        value:item,
+        visible: true,
+        position: null,
         matched: false
       });
-    }
+
+      cardList.value.push({
+        value:item,
+        visible: true,
+        position: null,
+        matched: false
+      });
+    });
+
+    cardList.value = cardList.value.map((card, index) => {
+      return {
+        ...card,
+        position: index
+      }
+    });
+
 
     const flipCard = payload => {
       cardList.value[payload.position].visible = true;
