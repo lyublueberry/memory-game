@@ -1,7 +1,5 @@
 <template>
   <h1 class="game__title">Тренируй память</h1>
-  <h2 class="game__subtitle">игра</h2>
-
   <button class="btn__start" @click="restartGame">
     <img class="btn__img" src="../public/images/startbtn.png" width="100px" height="100px" alt="btn" />
   </button>
@@ -19,8 +17,8 @@
       :matched="card.matched" 
     />
   </transition-group>
-  <p>тестовое задание для ROWI Факторинг Плюс </p>
-  <span> сделала <a class="link__tg" href="https://t.me/lyublueberry">Черникова Любовь</a></span>
+  <p>test task for ROWI Факторинг Плюс </p>
+  <span> made by <a class="link__tg" href="https://t.me/lyublueberry">Chernikova Lyubov</a></span>
 </template>
 
 <script>
@@ -72,7 +70,7 @@ export default {
             visible: false
           }
         });
-      }, 10000)
+      }, 3000)
     };
 
     const cardItems = ['sticker', 'sticker1', 'sticker2', 'sticker3', 'sticker4', 'sticker5',
