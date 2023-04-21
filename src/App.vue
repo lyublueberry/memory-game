@@ -6,11 +6,19 @@
     <img class="btn__img" src="../public/images/startbtn.png" width="100px" height="100px" alt="btn" />
   </button>
 
-
-  <section class="game-board">
-    <Card v-for="(card, index) in cardList" :key="`card-${index}`" :value="card.value" :visible="card.visible"
-      @select-card="flipCard" :position="card.position" :matched="card.matched" />
-  </section>
+  <transition-group tag="section"
+    class="game-board"
+    name="shuffle-card">
+    
+    <Card v-for="(card) in cardList" 
+      :key="`${card.value}-${card.variant}`"
+      :value="card.value"
+      :visible="card.visible"
+      @select-card="flipCard"
+      :position="card.position" 
+      :matched="card.matched" 
+    />
+  </transition-group>
   <p>тестовое задание для ROWI Факторинг Плюс </p>
   <span> сделала <a class="link__tg" href="https://t.me/lyublueberry">Черникова Любовь</a></span>
 </template>
@@ -51,17 +59,29 @@ export default {
           ...card,
           matched: false,
           position: index,
-          visible: false
+          visible: true
         }
-      })
+      });
+      setTimeout(() => {
+        cardList.value = cardList.value.map((card, index) => {
+          return {
+            ...card,
+            matched: false,
+            position: index,
+            visible: false
+          }
+        });
+      }, 10000)
     };
 
     const cardItems = ['sticker', 'sticker1', 'sticker2', 'sticker3', 'sticker4', 'sticker5',
       'sticker6', 'sticker7', 'sticker8', 'sticker9', 'sticker10',
       'sticker11', 'sticker12', 'sticker13', 'sticker14'];
+
     cardItems.forEach(item => {
       cardList.value.push({
         value: item,
+        variant: 1,
         visible: false,
         position: null,
         matched: false
@@ -69,6 +89,7 @@ export default {
 
       cardList.value.push({
         value: item,
+        variant: 2,
         visible: false,
         position: null,
         matched: false
@@ -109,7 +130,7 @@ export default {
           setTimeout(() => {
             cardList.value[cardOne.position].visible = false;
             cardList.value[cardTwo.position].visible = false;
-          }, 2000)
+          }, 1000)
 
         }
 
@@ -181,4 +202,10 @@ body {
 .link__tg {
   text-decoration: none;
   color: #ffffff;
-}</style>
+}
+
+.shuffle-card-move {
+  transition: transform 0.8s ease-in;
+}
+
+</style>
