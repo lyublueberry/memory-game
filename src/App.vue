@@ -1,16 +1,26 @@
 <template>
   <h1 class="game__title">Тренируй память</h1>
+
   <button class="btn__start" @click="restartGame">
     <img class="btn__img" src="../public/images/startbtn.png" width="100px" height="100px" alt="btn" />
   </button>
 
   <transition-group tag="section" class="game-board" name="shuffle-card">
 
-    <Card v-for="(card) in cardList" :key="`${card.value}-${card.variant}`" :value="card.value" :visible="card.visible"
-      @select-card="flipCard" :position="card.position" :matched="card.matched" />
+    <Card v-for="(card) in cardList"
+      :key="`${card.value}-${card.variant}`" 
+      :value="card.value" 
+      :visible="card.visible"
+      @select-card="flipCard" 
+      :position="card.position" 
+      :matched="card.matched" 
+    />
   </transition-group>
+
   <p>test task for ROWI Факторинг Плюс </p>
+
   <span> made by <a class="link__tg" href="https://t.me/lyublueberry">Chernikova Lyubov</a></span>
+  
 </template>
 
 <script>
@@ -29,7 +39,6 @@ export default {
   setup() {
     const { cardList } = createDeck(picDeck);
     const { 
-      newPalyer,
       restartGame,
       status,
       remainingPairs,
@@ -83,7 +92,6 @@ export default {
       flipCard,
       userSelection,
       status,
-      newPalyer,
       restartGame,
       startGame
     }
