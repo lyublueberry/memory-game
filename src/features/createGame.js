@@ -26,7 +26,7 @@ export default function createGame(deck) {
                 visible: false
               }
             });
-          }, 3000)
+          }, 7000)
 
     }
 
