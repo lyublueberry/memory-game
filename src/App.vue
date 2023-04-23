@@ -19,6 +19,7 @@ import _ from 'lodash';
 import { ref, watch, computed } from 'vue';
 import { launchConfetti } from './utilities/confetti';
 import Card from './components/Card.vue';
+import picDeck from './data/picDeck.json';
 
 export default {
   name: 'App',
@@ -26,7 +27,7 @@ export default {
     Card,
   },
   setup() {
-    const { cardList } = createDeck();
+    const { cardList } = createDeck(picDeck);
     const userSelection = ref([]);
 
     const status = computed(() => {
