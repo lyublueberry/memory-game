@@ -4,24 +4,17 @@
     <img class="btn__img" src="../public/images/startbtn.png" width="100px" height="100px" alt="btn" />
   </button>
 
-  <transition-group tag="section"
-    class="game-board"
-    name="shuffle-card">
-    
-    <Card v-for="(card) in cardList" 
-      :key="`${card.value}-${card.variant}`"
-      :value="card.value"
-      :visible="card.visible"
-      @select-card="flipCard"
-      :position="card.position" 
-      :matched="card.matched" 
-    />
+  <transition-group tag="section" class="game-board" name="shuffle-card">
+
+    <Card v-for="(card) in cardList" :key="`${card.value}-${card.variant}`" :value="card.value" :visible="card.visible"
+      @select-card="flipCard" :position="card.position" :matched="card.matched" />
   </transition-group>
   <p>test task for ROWI Факторинг Плюс </p>
   <span> made by <a class="link__tg" href="https://t.me/lyublueberry">Chernikova Lyubov</a></span>
 </template>
 
 <script>
+import createDeck from './features/createDeck';
 import _ from 'lodash';
 import { ref, watch, computed } from 'vue';
 import { launchConfetti } from './utilities/confetti';
@@ -33,8 +26,8 @@ export default {
     Card,
   },
   setup() {
+    const { cardList } = createDeck();
     const userSelection = ref([]);
-    const cardList = ref([]);
 
     const status = computed(() => {
       if (remainingPairs.value === 0) {
@@ -73,7 +66,7 @@ export default {
       }, 3000)
     };
 
-    const cardItems = ['sticker', 'sticker1', 'sticker2', 'sticker3', 'sticker4', 'sticker5',
+   /*  const cardItems = ['sticker', 'sticker1', 'sticker2', 'sticker3', 'sticker4', 'sticker5',
       'sticker6', 'sticker7', 'sticker8', 'sticker9', 'sticker10',
       'sticker11', 'sticker12', 'sticker13', 'sticker14'];
 
@@ -102,7 +95,7 @@ export default {
       }
     });
 
-
+ */
     const flipCard = payload => {
       cardList.value[payload.position].visible = true;
 
@@ -118,31 +111,31 @@ export default {
     }
 
     watch(remainingPairs, currentValue => {
-      if(currentValue === 0){
+      if (currentValue === 0) {
         launchConfetti()
       }
     }),
 
-    watch(userSelection, currentValue => {
-      if (currentValue.length === 2) {
-        const cardOne = currentValue[0];
-        const cardTwo = currentValue[1];
+      watch(userSelection, currentValue => {
+        if (currentValue.length === 2) {
+          const cardOne = currentValue[0];
+          const cardTwo = currentValue[1];
 
-        if (cardOne.faceValue === cardTwo.faceValue) {
-          cardList.value[cardOne.position].matched = true;
-          cardList.value[cardTwo.position].matched = true;
-        } else {
-          setTimeout(() => {
-            cardList.value[cardOne.position].visible = false;
-            cardList.value[cardTwo.position].visible = false;
-          }, 1000)
+          if (cardOne.faceValue === cardTwo.faceValue) {
+            cardList.value[cardOne.position].matched = true;
+            cardList.value[cardTwo.position].matched = true;
+          } else {
+            setTimeout(() => {
+              cardList.value[cardOne.position].visible = false;
+              cardList.value[cardTwo.position].visible = false;
+            }, 1000)
 
+          }
+
+          userSelection.value.length = 0
         }
-
-        userSelection.value.length = 0
-      }
-    },
-      { deep: true })
+      },
+        { deep: true })
 
     return {
       cardList,
@@ -212,5 +205,4 @@ body {
 .shuffle-card-move {
   transition: transform 0.8s ease-in;
 }
-
 </style>
