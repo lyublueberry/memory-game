@@ -29,7 +29,6 @@ export default {
   setup() {
     const { cardList } = createDeck(picDeck);
     const { 
-      newPalyer,
       restartGame,
       status,
       remainingPairs,
@@ -83,7 +82,6 @@ export default {
       flipCard,
       userSelection,
       status,
-      newPalyer,
       restartGame,
       startGame
     }
