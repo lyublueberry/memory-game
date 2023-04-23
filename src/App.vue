@@ -15,8 +15,8 @@
 
 <script>
 import createDeck from './features/createDeck';
-import _ from 'lodash';
-import { ref, watch, computed } from 'vue';
+import createGame from './features/createGame';
+import { ref, watch } from 'vue';
 import { launchConfetti } from './utilities/confetti';
 import Card from './components/Card.vue';
 import picDeck from './data/picDeck.json';
@@ -28,75 +28,15 @@ export default {
   },
   setup() {
     const { cardList } = createDeck(picDeck);
+    const { 
+      newPalyer,
+      restartGame,
+      status,
+      remainingPairs,
+      startGame } = createGame(cardList);
+
     const userSelection = ref([]);
 
-    const status = computed(() => {
-      if (remainingPairs.value === 0) {
-        return "Wins";
-      } else return `Осталось: ${remainingPairs.value}`;
-    })
-
-    const remainingPairs = computed(() => {
-      const remainingCards = cardList.value.filter(card => card.matched === false).length
-      return remainingCards / 2;
-    });
-
-    const shuffleCards = () => {
-      cardList.value = _.shuffle(cardList.value);
-    }
-
-    const restartGame = () => {
-      shuffleCards();
-      cardList.value = cardList.value.map((card, index) => {
-        return {
-          ...card,
-          matched: false,
-          position: index,
-          visible: true
-        }
-      });
-      setTimeout(() => {
-        cardList.value = cardList.value.map((card, index) => {
-          return {
-            ...card,
-            matched: false,
-            position: index,
-            visible: false
-          }
-        });
-      }, 3000)
-    };
-
-   /*  const cardItems = ['sticker', 'sticker1', 'sticker2', 'sticker3', 'sticker4', 'sticker5',
-      'sticker6', 'sticker7', 'sticker8', 'sticker9', 'sticker10',
-      'sticker11', 'sticker12', 'sticker13', 'sticker14'];
-
-    cardItems.forEach(item => {
-      cardList.value.push({
-        value: item,
-        variant: 1,
-        visible: false,
-        position: null,
-        matched: false
-      });
-
-      cardList.value.push({
-        value: item,
-        variant: 2,
-        visible: false,
-        position: null,
-        matched: false
-      });
-    });
-
-    cardList.value = cardList.value.map((card, index) => {
-      return {
-        ...card,
-        position: index
-      }
-    });
-
- */
     const flipCard = payload => {
       cardList.value[payload.position].visible = true;
 
@@ -143,8 +83,9 @@ export default {
       flipCard,
       userSelection,
       status,
-      shuffleCards,
-      restartGame
+      newPalyer,
+      restartGame,
+      startGame
     }
   }
 }
