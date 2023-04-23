@@ -2,10 +2,8 @@ import _ from 'lodash';
 import { ref, computed } from 'vue';
 
 export default function createGame(deck) {
-    const newPalyer = ref(true);
 
     const startGame = () => {
-        newPalyer.value = false;
         restartGame();
     }
 
@@ -46,7 +44,6 @@ export default function createGame(deck) {
 
       
     return {
-        newPalyer,
         restartGame,
         status,
         remainingPairs,
